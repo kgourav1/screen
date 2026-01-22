@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Full Screen Color Display</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Full Screen Color Display</h1>
+
+      <div class="color-picker-wrapper">
+        <div class="color-display" id="colorDisplay"></div>
+        <div class="color-input-group">
+          <input type="color" id="colorPicker" value="#000000" />
+          <input type="text" id="hexInput" value="#000000" maxlength="7" />
+        </div>
+      </div>
+
+      <div class="preset-colors">
+        <div
+          class="preset-color"
+          style="background: #000000"
+          data-color="#000000"
+        ></div>
+        <div
+          class="preset-color"
+          style="background: #ffffff"
+          data-color="#FFFFFF"
+        ></div>
+        <div
+          class="preset-color"
+          style="background: #ff0000"
+          data-color="#FF0000"
+        ></div>
+        <div
+          class="preset-color"
+          style="background: #00ff00"
+          data-color="#00FF00"
+        ></div>
+        <div
+          class="preset-color"
+          style="background: #0000ff"
+          data-color="#0000FF"
+        ></div>
+        <div
+          class="preset-color"
+          style="background: #ffff00"
+          data-color="#FFFF00"
+        ></div>
+        <div
+          class="preset-color"
+          style="background: #ff00ff"
+          data-color="#FF00FF"
+        ></div>
+        <div
+          class="preset-color"
+          style="background: #00ffff"
+          data-color="#00FFFF"
+        ></div>
+      </div>
+
+      <div class="time-controls">
+        <h3>Time Display</h3>
+        <div class="time-options">
+          <button class="time-btn" data-mode="none">None</button>
+          <button class="time-btn" data-mode="clock">Clock</button>
+          <button class="time-btn" data-mode="timer">Timer (5:00)</button>
+          <button class="time-btn" data-mode="stopwatch">Stopwatch</button>
+        </div>
+      </div>
+
+      <button class="fullscreen-btn" id="fullscreenBtn">Go Full Screen</button>
+    </div>
+
+    <div class="fullscreen-view" id="fullscreenView">
+      <button class="close-btn" id="closeBtn">×</button>
+      <div class="time-display" id="timeDisplay">00:00:00</div>
+      <div class="stopwatch-controls" id="stopwatchControls">
+        <button id="startStop">Start</button>
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

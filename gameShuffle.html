@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>36 Questions – Card Game</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Poppins", system-ui, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        height: 100vh;
+        background: radial-gradient(circle at top, #ff758c, #1a1a2e);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+      }
+
+      .game {
+        width: 90%;
+        max-width: 420px;
+        text-align: center;
+      }
+
+      .deck-title {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        opacity: 0.85;
+        margin-bottom: 14px;
+      }
+
+      .card-container {
+        perspective: 1000px;
+      }
+
+      .card {
+        width: 100%;
+        min-height: 220px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(14px);
+        border-radius: 20px;
+        padding: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+        transform-style: preserve-3d;
+        transition: transform 0.8s ease;
+      }
+
+      .card.flip {
+        transform: rotateY(180deg);
+      }
+
+      .card-content {
+        transform: rotateY(180deg);
+      }
+
+      .controls {
+        margin-top: 20px;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      button {
+        background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
+        border: none;
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        color: #fff;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(255, 77, 109, 0.6);
+      }
+
+      button:active {
+        transform: scale(0.97);
+      }
+
+      .footer {
+        margin-top: 14px;
+        font-size: 0.75rem;
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="game">
+      <div class="deck-title" id="deckTitle">Deck I – Icebreaker</div>
+
+      <div class="card-container">
+        <div class="card" id="card">
+          <div class="card-content" id="cardText">Tap “Draw Card” 💕</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button onclick="drawCard()">Draw Card</button>
+        <button onclick="shuffleGame()">Shuffle 🔀</button>
+      </div>
+
+      <div class="footer">Answer honestly. One card at a time.</div>
+    </div>
+
+    <script>
+      const decks = [
+        {
+          name: "Deck I – Icebreaker",
+          questions: [
+            "If you could invite anyone to dinner, who would it be?",
+            "Would you like to be famous? In what way?",
+            "Do you rehearse before making phone calls?",
+            "What would a perfect day look like?",
+            "When did you last sing to yourself or someone else?",
+            "If you could keep your mind or body at 30 forever, which?",
+            "Do you have a feeling about how you might die?",
+            "Name three things you and your partner have in common.",
+            "What are you most grateful for?",
+            "What would you change about your upbringing?",
+            "Tell your life story in four minutes.",
+            "What new ability would you like to wake up with?",
+          ],
+        },
+        {
+          name: "Deck II – Connection",
+          questions: [
+            "What would you ask a crystal ball?",
+            "What dream have you not followed yet?",
+            "What is your greatest achievement?",
+            "What do you value most in friendship?",
+            "What is your happiest memory?",
+            "What is your most painful memory?",
+            "If you had one year left, would you change your life?",
+            "What does friendship mean to you?",
+            "What role does love play in your life?",
+            "Share positive traits about each other.",
+            "How close is your family?",
+            "How do you feel about your relationship with your mother?",
+          ],
+        },
+        {
+          name: "Deck III – Vulnerability",
+          questions: [
+            "Make three true 'we' statements.",
+            "Finish: I wish I had someone to share…",
+            "What should a close friend know about you?",
+            "What do you like about your partner?",
+            "Share an embarrassing moment.",
+            "When did you last cry?",
+            "Tell something you already like about your partner.",
+            "What is too serious to joke about?",
+            "What regret would you have if you died tonight?",
+            "What would you save from a burning house?",
+            "Whose death would affect you most?",
+            "Share a problem and ask for advice.",
+          ],
+        },
+      ];
+
+      let flatDeck = [];
+      let index = 0;
+
+      function initGame() {
+        flatDeck = [];
+        decks.forEach((deck) => {
+          deck.questions.forEach((q) => {
+            flatDeck.push({ deck: deck.name, text: q });
+          });
+        });
+        shuffleArray(flatDeck);
+        index = 0;
+      }
+
+      function drawCard() {
+        const card = document.getElementById("card");
+        const cardText = document.getElementById("cardText");
+        const deckTitle = document.getElementById("deckTitle");
+
+        if (index >= flatDeck.length) {
+          cardText.innerText = "That’s all 💞\nHold eye contact for 2 minutes.";
+          deckTitle.innerText = "Game Complete";
+          return;
+        }
+
+        card.classList.remove("flip");
+
+        setTimeout(() => {
+          const current = flatDeck[index];
+          cardText.innerText = current.text;
+          deckTitle.innerText = current.deck;
+          card.classList.add("flip");
+          index++;
+        }, 200);
+      }
+
+      function shuffleGame() {
+        initGame();
+        document.getElementById("cardText").innerText =
+          "Deck shuffled 💘\nDraw when ready.";
+        document.getElementById("deckTitle").innerText = "New Game";
+      }
+
+      function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+      }
+
+      initGame();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>36 Questions Card Game</title>
+
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        background: linear-gradient(135deg, #1e1e2f, #2b2b45);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .game {
+        width: 90%;
+        max-width: 420px;
+        text-align: center;
+      }
+
+      .deck {
+        font-size: 0.9rem;
+        opacity: 0.8;
+        margin-bottom: 10px;
+      }
+
+      .card {
+        background: #ffffff;
+        color: #000;
+        border-radius: 16px;
+        padding: 30px 20px;
+        min-height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        margin-bottom: 20px;
+      }
+
+      button {
+        background: #ff4d6d;
+        border: none;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="game">
+      <div class="deck" id="deckName">Deck I – Icebreaker</div>
+      <div class="card" id="card">Click "Draw Card" to begin</div>
+      <button onclick="drawCard()">Draw Card</button>
+    </div>
+
+    <script>
+      const decks = [
+        {
+          name: "Deck I – Icebreaker",
+          questions: [
+            "If you could invite anyone to dinner, who would it be?",
+            "Would you like to be famous? In what way?",
+            "Do you rehearse before making phone calls? Why?",
+            "What would a perfect day look like?",
+            "When did you last sing to yourself or someone else?",
+            "If you could keep your mind or body at 30 forever, which?",
+            "Do you have a feeling about how you might die?",
+            "Name three things you and your partner have in common.",
+            "What are you most grateful for?",
+            "What would you change about your upbringing?",
+            "Tell your life story in four minutes.",
+            "What new ability would you like to wake up with?",
+          ],
+        },
+        {
+          name: "Deck II – Connection",
+          questions: [
+            "What would you ask a crystal ball?",
+            "What dream have you not followed yet?",
+            "What is your greatest achievement?",
+            "What do you value most in friendship?",
+            "What is your happiest memory?",
+            "What is your most painful memory?",
+            "If you had one year left, would you change your life?",
+            "What does friendship mean to you?",
+            "What role does love play in your life?",
+            "Share positive traits about each other.",
+            "How close is your family?",
+            "How do you feel about your relationship with your mother?",
+          ],
+        },
+        {
+          name: "Deck III – Vulnerability",
+          questions: [
+            "Make three true 'we' statements.",
+            "Finish: I wish I had someone to share...",
+            "What should a close friend know about you?",
+            "What do you like about your partner?",
+            "Share an embarrassing moment.",
+            "When did you last cry?",
+            "Tell something you already like about your partner.",
+            "What is too serious to joke about?",
+            "What regret would you have if you died tonight?",
+            "What would you save from a burning house?",
+            "Whose death would affect you most?",
+            "Share a problem and ask for advice.",
+          ],
+        },
+      ];
+
+      let deckIndex = 0;
+      let questionIndex = 0;
+
+      function drawCard() {
+        if (deckIndex >= decks.length) {
+          document.getElementById("card").innerText =
+            "Game complete ❤️\nTake a moment of eye contact.";
+          return;
+        }
+
+        const deck = decks[deckIndex];
+
+        document.getElementById("deckName").innerText = deck.name;
+        document.getElementById("card").innerText =
+          deck.questions[questionIndex];
+
+        questionIndex++;
+
+        if (questionIndex >= deck.questions.length) {
+          deckIndex++;
+          questionIndex = 0;
+        }
+      }
+    </script>
+  </body>
+</html>

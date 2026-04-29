@@ -243,6 +243,6 @@ input[type="text"] {
 
 @media (max-width: 600px) {
   .time-display {
-    font-size: 60px;
+    font-size: 50px;
   }
 }
